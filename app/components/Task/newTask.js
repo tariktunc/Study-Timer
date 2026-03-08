@@ -1,120 +1,99 @@
-import React, { useState } from "react";
-import Task from "./task.module.scss";
-
+"use client";
+import React, { useState, useRef, useEffect } from "react";
+import styles from "./task.module.scss";
 import { useDispatch } from "react-redux";
 import { addData } from "@/Redux/Slices/taskSlice";
-import Image from "next/image";
 
-export default function NewTask(props) {
+export default function NewTask({ savesTask, cancelTask }) {
   const dispatch = useDispatch();
   const [count, setCount] = useState(1);
-  const [isText, setIsText] = useState("");
+  const [text, setText] = useState("");
+  const inputRef = useRef(null);
 
-  const handleArrow = (e) => {
-    switch (e.target.name) {
-      case "up":
-        setCount(count < 99 ? count + 1 : count);
-        break;
-      case "down":
-        setCount(count >= 1 ? count - 1 : count);
-        break;
-      default:
-      // Eğer "up" veya "down" dışında bir değer gelirse hiçbir şey yapma.
-    }
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
+
+  const handleArrow = (direction) => {
+    if (direction === "up" && count < 99) setCount(count + 1);
+    if (direction === "down" && count > 1) setCount(count - 1);
   };
 
   const saveTask = () => {
-    let todo = {
-      key: Date.now(),
-      text: isText,
-      currentSession: 0,
-      totalSessions: count,
-      status: false,
-    };
+    if (text.trim().length === 0) return;
 
-    if (todo.text.length >= 1) {
-      dispatch(addData(todo));
-      props.savesTask();
-    }
+    dispatch(
+      addData({
+        key: Date.now(),
+        text: text.trim(),
+        currentSession: 0,
+        totalSessions: count,
+        status: false,
+      })
+    );
+    savesTask();
   };
 
-  const handleChange = (e) => {
-    setIsText(e.target.value);
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") saveTask();
+    if (e.key === "Escape") cancelTask();
   };
 
   return (
-    <div className={Task.newTask}>
-      {/* This pomodoro INPUT */}
-
-      <div className={Task.inputValue}>
-        {/* 35 karaktere kadar sınırlandırılacaktır. */}
+    <div className={styles.newTask} role="dialog" aria-label="Yeni görev ekle">
+      <div className={styles.inputValue}>
         <input
-          className={Task.newItemText}
-          id="newItemText"
-          value={isText}
-          onChange={handleChange}
+          ref={inputRef}
+          className={styles.newItemText}
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          onKeyDown={handleKeyDown}
           type="text"
-          maxLength={30}
-          placeholder="What are you working on ?"
+          maxLength={50}
+          placeholder="Ne üzerinde çalışıyorsun?"
+          aria-label="Görev adı"
         />
       </div>
 
-      {/* NUMBERS UP AND DOWN */}
-      <div className={Task.setNumber}>
-        <div className={Task.title}>
-          <p>Est Pomodoros</p>
+      <div className={styles.setNumber}>
+        <div className={styles.title}>
+          <p>Tahmini Pomodoro</p>
         </div>
-
-        <div className={Task.values}>
-          <div className={Task.number}>{count}</div>
-          {/* UP ARROW */}
-          <button name="up" onClick={handleArrow}>
-            <Image
-              src="/arrow-up-solid.svg"
-              width={20}
-              height={20}
-              alt="uparrow"
-              name="up"
-              onClick={handleArrow}
-            />
+        <div className={styles.values}>
+          <div className={styles.number} aria-label={`Pomodoro sayısı: ${count}`}>
+            {count}
+          </div>
+          <button
+            onClick={() => handleArrow("up")}
+            aria-label="Pomodoro sayısını artır"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M18 15l-6-6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+            </svg>
           </button>
-
-          {/*  DOWN ARROW */}
-          <button name="down" onClick={handleArrow}>
-            <Image
-              src="/arrow-down-solid.svg"
-              width={20}
-              height={20}
-              alt="downarrow"
-              name="down"
-              onClick={handleArrow}
-            />
+          <button
+            onClick={() => handleArrow("down")}
+            aria-label="Pomodoro sayısını azalt"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+            </svg>
           </button>
         </div>
       </div>
 
-      {/* DELETE OR SAVE AND CANCEL */}
-      <div className={Task.saveOrcancel}>
-        <button className={Task.delete} id="delete">
-          <Image
-            src="/trash-alt.svg"
-            width={25}
-            height={25}
-            alt="delete"
-            name="delete"
-            onClick={() => props.cancelTask()}
-          />
-        </button>
-        <div>
-          <button
-            className={Task.cancel}
-            id="cancel"
-            onClick={() => props.cancelTask()}
-          >
-            Cancel
+      <div className={styles.saveOrcancel}>
+        <div className={styles.delete}>
+          <button onClick={cancelTask} aria-label="Görevi iptal et">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2m3 0v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6h14z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+            </svg>
           </button>
-          <button className={Task.save} id="save" onClick={saveTask}>
-            Save
+        </div>
+        <div>
+          <button onClick={cancelTask}>İptal</button>
+          <button className={styles.save} onClick={saveTask}>
+            Kaydet
           </button>
         </div>
       </div>

@@ -1,12 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+// Pomofocus uyumlu varsayılan renkler (WCAG 2.1 AA)
 export const colorSlice = createSlice({
   name: "colorSettings",
   initialState: {
     colorSettings: {
-      focusColor: "#7D53A2",
-      shortBreakColor: "#545764",
-      longBreakColor: "#af4e91",
+      focusColor: "#BA4949",
+      shortBreakColor: "#38858A",
+      longBreakColor: "#397097",
     },
   },
   reducers: {
@@ -18,5 +19,4 @@ export const colorSlice = createSlice({
 });
 
 export const { setColors } = colorSlice.actions;
-
 export default colorSlice.reducer;

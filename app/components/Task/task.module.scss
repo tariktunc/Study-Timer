@@ -1,240 +1,306 @@
-$background1: rgb(186, 73, 73);
-$mainWidth: 500px;
-$mainHeight: 60px;
-$mainBorder: 5px;
+/* ==========================================
+   TASK COMPONENTS
+   ========================================== */
 
 .todoList {
-  width: $mainWidth;
+  width: 100%;
+  max-width: var(--max-width);
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: var(--space-5);
+}
+
+.taskHeader {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: var(--space-3);
+  margin-bottom: var(--space-3);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.6);
+
+  h2 {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+  }
 }
 
 .tasks,
 .Endtasks {
-  width: $mainWidth;
+  width: 100%;
   display: flex;
-  margin: 5px 0;
-  height: $mainHeight;
-  background-color: #fff;
-  border-radius: 5px;
+  align-items: center;
+  margin-bottom: var(--space-2);
+  min-height: 60px;
+  background-color: var(--color-surface);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  color: var(--color-text-primary);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--transition-fast);
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: var(--shadow-md);
+  }
 
   .tasksText {
     display: flex;
-    justify-content: left;
     align-items: center;
-    height: 100%;
-    padding: 10px;
-    width: 80%;
-    img {
-      margin-left: 5px;
-    }
+    flex: 1;
+    padding: var(--space-3) var(--space-4);
+    gap: var(--space-3);
+    min-width: 0;
+
     p {
-      margin-left: 10px;
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-bold);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 
   .task {
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: 20%;
-    i,
+    gap: var(--space-2);
+    padding-right: var(--space-4);
+    flex-shrink: 0;
+
     p {
-      margin-right: 10px;
+      font-size: var(--font-size-sm);
+      color: var(--color-text-muted);
+      font-weight: var(--font-weight-bold);
     }
-    i {
-      font-size: 30px;
+
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      color: var(--color-text-muted);
+
+      &:hover {
+        background-color: var(--color-surface-alt);
+        color: var(--color-error);
+      }
     }
   }
 }
 
 .Endtasks {
-  opacity: 0.8;
+  opacity: 0.65;
 
   .tasksText {
-    text-decoration: line-through;
-    text-decoration-style: dash;
+    p {
+      text-decoration: line-through;
+      color: var(--color-text-muted);
+    }
   }
 }
 
+/* ==========================================
+   ADD TASK BUTTON
+   ========================================== */
+
 .addTask {
-  margin-top: 10px;
-  width: $mainWidth;
-  border-radius: $mainBorder;
-  height: $mainHeight;
-  border: 2px dashed #fff;
+  width: 100%;
+  margin-top: var(--space-3);
+  border-radius: var(--radius-md);
+  min-height: 60px;
+  border: 2px dashed rgba(255, 255, 255, 0.5);
+  transition: all var(--transition-fast);
+
+  &:hover {
+    border-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+
   div {
     height: 100%;
+
     button {
-      opacity: 0.8;
-      color: hsla(0, 0%, 100%, 1);
       width: 100%;
       height: 100%;
-      cursor: pointer;
+      min-height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-2);
+      color: var(--color-text-on-dark);
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-bold);
+      opacity: 0.8;
 
       &:hover {
-        opacity: 0.5;
-        transition: opacity 0.6s;
+        opacity: 1;
       }
     }
   }
 }
 
+/* ==========================================
+   NEW TASK FORM
+   ========================================== */
+
 .newTask {
-  width: $mainWidth;
-  border-radius: $mainBorder;
-  background-color: #fff;
-  margin-top: 20px;
+  width: 100%;
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+  margin-top: var(--space-4);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  color: var(--color-text-primary);
 
   .inputValue {
-    height: 100%;
-    margin-left: 20px;
-    margin-bottom: 10px;
+    padding: var(--space-5) var(--space-5) var(--space-3);
 
     .newItemText {
-      height: 50px;
       width: 100%;
-      font-size: 16px;
-    }
-    .newItemText:focus {
-      outline: none;
+      border: none;
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      font-family: inherit;
+      color: var(--color-text-primary);
+      background: transparent;
+
+      &::placeholder {
+        color: var(--color-text-muted);
+        font-style: italic;
+      }
+
+      &:focus {
+        outline: none;
+      }
     }
   }
 
   .setNumber {
-    margin-left: 20px;
+    padding: 0 var(--space-5) var(--space-4);
+
     .title {
-      opacity: 0.8;
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-2);
+      font-weight: var(--font-weight-bold);
     }
 
     .values {
       display: flex;
-      justify-content: flex-start;
       align-items: center;
+      gap: var(--space-2);
+
       .number {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 48px;
+        height: 40px;
+        background-color: var(--color-surface-alt);
+        border-radius: var(--radius-md);
+        font-size: var(--font-size-base);
+        font-weight: var(--font-weight-bold);
+        color: var(--color-text-primary);
+      }
+
+      button {
         display: flex;
         justify-content: center;
         align-items: center;
         width: 40px;
         height: 40px;
-        background-color: rgb(200, 200, 200);
-        border-radius: 2px;
-        text-align: center;
-        font-size: 16px;
-        opacity: 0.9;
-      }
+        background-color: var(--color-surface-alt);
+        border-radius: var(--radius-md);
+        color: var(--color-text-secondary);
 
-      button {
-        background-color: #f2f2f2;
-        width: 40px;
-        height: 40px;
-        border-radius: 5px;
-        margin: 5px;
+        &:hover {
+          background-color: var(--color-surface-hover);
+        }
+
         img {
-          margin: 10px;
-          opacity: 0.8;
+          width: 14px;
+          height: 14px;
+          opacity: 0.6;
         }
       }
     }
   }
 
   .saveOrcancel {
-    background-color: #efefef;
-    height: 70px;
+    background-color: var(--color-surface-alt);
+    padding: var(--space-3) var(--space-5);
     display: flex;
     justify-content: space-between;
     align-items: center;
 
     .delete {
       display: flex;
-      justify-content: center;
       align-items: center;
+
+      button {
+        color: var(--color-text-muted);
+        padding: var(--space-2);
+
+        &:hover {
+          color: var(--color-error);
+        }
+      }
     }
 
     button {
-      opacity: 0.7;
-      width: 100px;
-      height: 50px;
-      margin-right: 20px;
+      padding: var(--space-2) var(--space-5);
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-bold);
+      min-height: 40px;
     }
 
     .save {
-      background-color: black;
-      border-radius: 5px;
-      color: #fff;
-    }
-  }
-}
+      background-color: var(--color-text-primary);
+      color: var(--color-surface);
 
-@media screen and (max-width: 510px) {
-  .todoList {
-    width: 400px;
-    font-size: 14px;
-  }
-  .tasks {
-    width: 400px;
-    font-size: 14px;
-  }
-  .addTask {
-    width: 400px;
-    font-size: 14px;
-  }
-  .Endtasks {
-    width: 400px;
-    font-size: 14px;
-  }
-  .newTask {
-    width: 400px;
-    font-size: 14px;
-    .setNumber {
-      .values {
-        .number {
-          font-size: 15px;
-          width: 60px;
-        }
-        button {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          background-color: #f2f2f2;
-          width: 60px;
-          height: 40px;
-          border-radius: 5px;
-        }
-      }
-    }
-    .saveOrcancel {
-      button {
-        opacity: 0.7;
-        width: 70px;
-        height: 40px;
+      &:hover {
+        opacity: 0.85;
       }
     }
   }
 }
 
-@media screen and (max-width: 400px) {
-  $mobil400pxwidth: 350px;
-  $mobil400pxText: 12px;
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+
+@media screen and (max-width: 640px) {
   .todoList {
-    width: $mobil400pxwidth;
-    font-size: $mobil400pxText;
+    padding: 0 var(--space-3);
   }
-  .tasks {
-    width: $mobil400pxwidth;
-    font-size: $mobil400pxText;
-  }
-  .addTask {
-    width: $mobil400pxwidth;
-    font-size: $mobil400pxText;
-  }
+
+  .tasks,
   .Endtasks {
-    width: $mobil400pxwidth;
-    font-size: $mobil400pxText;
+    min-height: 52px;
+
+    .tasksText {
+      padding: var(--space-2) var(--space-3);
+      p { font-size: var(--font-size-sm); }
+    }
+
+    .task {
+      padding-right: var(--space-3);
+      p { font-size: var(--font-size-xs); }
+      button { width: 32px; height: 32px; }
+    }
   }
+
   .newTask {
-    width: $mobil400pxwidth;
-    font-size: $mobil400pxText;
+    .inputValue {
+      padding: var(--space-4) var(--space-4) var(--space-2);
+      .newItemText { font-size: var(--font-size-lg); }
+    }
+    .setNumber { padding: 0 var(--space-4) var(--space-3); }
+    .saveOrcancel { padding: var(--space-3) var(--space-4); }
   }
 }

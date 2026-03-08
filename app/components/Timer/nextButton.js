@@ -1,22 +1,23 @@
+"use client";
 import React from "react";
-import TimerStyles from "./timer.module.scss";
-import NextSvg from "../icons/next/next";
+import styles from "./timer.module.scss";
 
-export default function NextButton({ click, name }) {
+export default function NextButton({ click }) {
   return (
-    <>
-      <button
-        onClick={() => click()}
-        name={name}
-        className={TimerStyles.resetButton}>
-        <NextSvg
-          src="/next-verify.png"
-          width={50}
-          height={50}
-          alt="reset-icon"
-          name={name}
+    <button
+      onClick={click}
+      className={styles.nextBtn}
+      aria-label="Zamanlayıcıyı sıfırla"
+    >
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path
+          d="M13 17l5-5-5-5M6 17l5-5-5-5"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
-      </button>
-    </>
+      </svg>
+    </button>
   );
 }

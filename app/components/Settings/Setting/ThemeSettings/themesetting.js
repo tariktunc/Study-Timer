@@ -1,50 +1,31 @@
 "use client";
-
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import HeaderStyles from "../../header.module.scss";
 
-export default function Themesetting({ handleButtonClick }) {
-  const focusColor = useSelector(
-    (state) => state.colorSettings.colorSettings.focusColor
-  );
-  const shortBreakColor = useSelector(
-    (state) => state.colorSettings.colorSettings.shortBreakColor
-  );
-  const longBreakColor = useSelector(
-    (state) => state.colorSettings.colorSettings.longBreakColor
-  );
+const THEME_BUTTONS = [
+  { key: "focusColor", label: "Pomodoro" },
+  { key: "shortBreakColor", label: "Kısa Mola" },
+  { key: "longBreakColor", label: "Uzun Mola" },
+];
 
-  const buttons = [
-    {
-      key: "focusColor",
-      background: focusColor,
-    },
-    {
-      key: "shortBreakColor",
-      background: shortBreakColor,
-    },
-    {
-      key: "longBreakColor",
-      background: longBreakColor,
-    },
-  ];
+export default function Themesetting({ handleButtonClick }) {
+  const { colorSettings } = useSelector((state) => state.colorSettings);
 
   return (
     <div className={HeaderStyles.themesetting}>
-      <p>Theme</p>
+      <p>Tema Renkleri</p>
       <div>
-        <p>Color Theme</p>
+        <p>Renk Teması</p>
         <div>
-          {buttons.map((btn) => {
-            return (
-              <button
-                key={btn.key}
-                onClick={() => handleButtonClick(btn.key)}
-                style={{ background: btn.background }}
-              />
-            );
-          })}
+          {THEME_BUTTONS.map((btn) => (
+            <button
+              key={btn.key}
+              onClick={() => handleButtonClick(btn.key)}
+              style={{ background: colorSettings[btn.key] }}
+              aria-label={`${btn.label} rengini değiştir`}
+            />
+          ))}
         </div>
       </div>
     </div>

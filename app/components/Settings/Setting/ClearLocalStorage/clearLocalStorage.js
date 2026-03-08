@@ -1,44 +1,29 @@
+"use client";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { resetPomoCount } from "@/Redux/Slices/timerSlice";
+import { clearAll } from "@/Redux/Slices/taskSlice";
+import { clearReport } from "@/Redux/Slices/reportSlice";
 import HeaderStyles from "../../header.module.scss";
 
 export default function ClearLocalStorage() {
   const dispatch = useDispatch();
 
-  const clearLocalStorage = () => {
-    const text = "All Task And Local Storage Clear ?";
-    if (window.confirm(text)) {
-      if (Notification.permission === "granted") {
-        new Notification("Local Storage Cleared", {
-          body: "Local Storage has been cleared successfully.",
-        });
-        dispatch(resetPomoCount());
-        window.location.reload();
-        alert("Local Storage Cleared Storage");
-        localStorage.clear();
-      } else if (Notification.permission !== "denied") {
-        Notification.requestPermission().then((permission) => {
-          if (permission === "granted") {
-            new Notification("Local Storage Cleared", {
-              body: "Local Storage has been cleared successfully.",
-            });
-          }
-        });
-      }
-    } else {
-      alert(
-        "Resetting the timer counter and local storage has been cancelled."
-      );
-    }
+  const handleClear = () => {
+    if (!window.confirm("Tüm veriler ve ayarlar silinecek. Emin misiniz?")) return;
+
+    dispatch(resetPomoCount());
+    dispatch(clearAll());
+    dispatch(clearReport());
+    localStorage.clear();
+    window.location.reload();
   };
 
   return (
-    <div className={`${HeaderStyles.localStorageClear}`}>
-      <p>Clear Local Storage</p>
-      <button
-        onClick={clearLocalStorage}>
-        Submit
+    <div className={HeaderStyles.localStorageClear}>
+      <p>Verileri Temizle</p>
+      <button onClick={handleClear} aria-label="Tüm verileri sil">
+        Temizle
       </button>
     </div>
   );

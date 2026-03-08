@@ -1,54 +1,30 @@
-import React, { useEffect, useState } from "react";
+"use client";
+import React from "react";
+import styles from "./timer.module.scss";
 
-export default function TimerButton({
-  actived,
-  pomodoroBtn,
-  shortBreakBtn,
-  longBreakBtn,
-}) {
-  const [activeButton, setActiveButton] = useState("pomodoro");
+const MODES = [
+  { id: "pomodoroTime", title: "pomodoro", label: "Pomodoro" },
+  { id: "shortBreakTime", title: "shortBreak", label: "Kısa Mola" },
+  { id: "longBreakTime", title: "longBreak", label: "Uzun Mola" },
+];
 
-  const buttonLists = [
-    {
-      id: "pomodoroTime",
-      title: "pomodoro",
-      name: "Focus Time", // Display Name
-      clickName: pomodoroBtn,
-    },
-    {
-      id: "shortBreakTime",
-      title: "shortBreak",
-      name: "Short Break", // Display Name
-      clickName: shortBreakBtn,
-    },
-    {
-      id: "longBreakTime",
-      title: "longBreak",
-      name: "Long Break", // Display Name
-      clickName: longBreakBtn,
-    },
-  ];
-
-
-
-  useEffect(() => {
-    actived !== null ? setActiveButton(actived) : activeButton;
-  }, [actived, activeButton]);
-
+export default function TimerButton({ activeMode, onModeChange }) {
   return (
-    <>
-      {buttonLists.map((item) => (
+    <div className={styles.modeSelector} role="tablist" aria-label="Zamanlayıcı modu">
+      {MODES.map((mode) => (
         <button
-          id={item.id}
-          key={item.title}
-          onClick={() => {
-            item.clickName();
-            setActiveButton(item.title);
-          }}
-          className={activeButton === item.title ? "activeButton" : null}>
-          {item.name}
+          key={mode.id}
+          role="tab"
+          aria-selected={activeMode === mode.title}
+          aria-controls="timer-display"
+          className={`${styles.modeBtn} ${
+            activeMode === mode.title ? styles.modeBtnActive : ""
+          }`}
+          onClick={() => onModeChange(mode.id)}
+        >
+          {mode.label}
         </button>
       ))}
-    </>
+    </div>
   );
 }

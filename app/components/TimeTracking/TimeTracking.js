@@ -1,41 +1,43 @@
+"use client";
 import { useSelector } from "react-redux";
 
 export default function TimeTracking() {
+  const { data } = useSelector((state) => state.dataAnalysis);
+  const { settings } = useSelector((state) => state.timerSetting);
 
-    const { data } = useSelector((state) => state.dataAnalysis);
-    const { settings } = useSelector((state) => state.timerSetting);
+  const totalSessions = data.reduce((t, s) => t + s.totalSessions, 0);
+  const currentSession = data.reduce((t, s) => t + s.currentSession, 0);
 
-    function timeSpent() {
-        const pomo = settings.pomodoroTime;
-        const short = settings.shortBreakTime;
-        const long = settings.longBreakTime;
-        const longInterval = settings.longBreakInterval;
+  function estimatedEndTime() {
+    const remaining = totalSessions - currentSession;
+    if (remaining <= 0) return "Tamamlandı!";
 
-        const totalSessions = data.reduce((total, session) => total + session.totalSessions, 0);
-        const currentSession = data.reduce((total, session) => total + session.currentSession, 0);
-        const session = totalSessions - currentSession;
+    const { pomodoroTime, shortBreakTime, longBreakTime, longBreakInterval } = settings;
+    const pomoMinutes = remaining * pomodoroTime;
+    const longBreaks = Math.floor(remaining / longBreakInterval);
+    const shortBreaks = remaining - longBreaks - 1;
+    const totalMinutes = pomoMinutes + longBreaks * longBreakTime + Math.max(0, shortBreaks) * shortBreakTime;
 
-        const newPomo = session * pomo; // 720
-        const newLong = ((session / longInterval) * long) - long; // 30
-        const newShort = ((session - (session / longInterval))) * short; // 120
+    const endTime = new Date(Date.now() + totalMinutes * 60000);
+    return endTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  }
 
-        const date = new Date();
-        const endTime = new Date(date.getTime() + (newPomo + newShort + newLong) * 60000); // Convert minutes to milliseconds
-
-        return endTime.toLocaleTimeString();
-    }
-
-    return (
-        <section className="mt-10 h-20 flex justify-around items-center border text-white rounded-md">
-            <div className="flex items-end ">
-                <p className="text-md opacity-80">Pomos: </p>
-                <p className="pl-3 text-2xl opacity-90">
-                    {data.reduce((total, session) => total + session.currentSession, 0)} / {data.reduce((total, session) => total + session.totalSessions, 0)}</p>
-            </div>
-            <div className="flex items-end">
-                <p className="text-md opacity-80">Time Spent: </p>
-                <p className="px-1 text-2xl opacity-90">{timeSpent()}</p>
-            </div>
-        </section>
-    );
+  return (
+    <section
+      className="mt-6 py-4 px-6 flex justify-around items-center rounded-lg"
+      style={{ backgroundColor: "rgba(255,255,255,0.1)" }}
+      aria-label="İlerleme takibi"
+    >
+      <div className="flex items-end gap-2">
+        <span className="text-sm opacity-80">Pomos:</span>
+        <span className="text-xl opacity-95">
+          {currentSession}/{totalSessions}
+        </span>
+      </div>
+      <div className="flex items-end gap-2">
+        <span className="text-sm opacity-80">Tahmini Bitiş:</span>
+        <span className="text-xl opacity-95">{estimatedEndTime()}</span>
+      </div>
+    </section>
+  );
 }

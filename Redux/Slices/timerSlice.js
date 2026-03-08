@@ -6,9 +6,11 @@ export const timerSlice = createSlice({
     settings: {
       pomodoroTime: 25,
       shortBreakTime: 5,
-      longBreakTime: 10,
+      longBreakTime: 15,
       pomoCount: 0,
       longBreakInterval: 4,
+      autoStartBreaks: false,
+      autoStartPomodoros: false,
     },
   },
   reducers: {
@@ -22,10 +24,18 @@ export const timerSlice = createSlice({
     incrementPomoCount: (state) => {
       state.settings.pomoCount += 1;
     },
+    toggleSetting: (state, action) => {
+      const key = action.payload;
+      state.settings[key] = !state.settings[key];
+    },
   },
 });
 
-export const { setTimerSettings, resetPomoCount, incrementPomoCount } =
-  timerSlice.actions;
+export const {
+  setTimerSettings,
+  resetPomoCount,
+  incrementPomoCount,
+  toggleSetting,
+} = timerSlice.actions;
 
 export default timerSlice.reducer;

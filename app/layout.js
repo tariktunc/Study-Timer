@@ -1,35 +1,40 @@
-"use client";
-
 import "./globals.css";
-import { Provider } from "react-redux";
-import store from "../Redux/store";
+import { ClerkProvider } from "@clerk/nextjs";
+import { Providers } from "./providers";
 
-const metadata = {
+export const metadata = {
   title: {
-    default: "Study Timerr",
-    template: "%s | Pomodoro Timer",
+    default: "StudyTimer - Pomodoro Çalışma Zamanlayıcısı",
+    template: "%s | StudyTimer",
   },
-  image: {
-    src: "/focusIcon.png",
-    type: "Fav-icon",
-    rel: "icon",
+  description:
+    "Pomodoro tekniği ile üretkenliğinizi artırın. Görev yönetimi, istatistikler ve özelleştirilebilir zamanlayıcı.",
+  keywords: [
+    "pomodoro",
+    "study timer",
+    "çalışma zamanlayıcısı",
+    "productivity",
+    "focus timer",
+  ],
+  icons: {
+    icon: "/focusIcon.png",
+  },
+  openGraph: {
+    title: "StudyTimer - Pomodoro Çalışma Zamanlayıcısı",
+    description:
+      "Pomodoro tekniği ile üretkenliğinizi artırın. Görev yönetimi, istatistikler ve özelleştirilebilir zamanlayıcı.",
+    type: "website",
   },
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <link
-        rel={metadata.image.rel}
-        type={metadata.image.type}
-        href={metadata.image.src}
-      />
-      <title>{metadata.title.default}</title>
-      <body suppressHydrationWarning={true}>
-        <Provider store={store}>{children}</Provider>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="tr" suppressHydrationWarning>
+        <body>
+          <Providers>{children}</Providers>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
-
-// suppressHydrationWarning={true} <= Do your research on what it is used for. !!!

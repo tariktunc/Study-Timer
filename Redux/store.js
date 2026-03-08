@@ -5,10 +5,11 @@ import { configureStore } from "@reduxjs/toolkit";
 import timerReducer from "./Slices/timerSlice";
 import taskSlice from "./Slices/taskSlice";
 import colorSlice from "./Slices/colorSlice";
+import reportSlice from "./Slices/reportSlice";
 import {
   loadStateFromLocalStorage,
   saveStateToLocalStorage,
-} from "./localStroge";
+} from "./localStorage";
 
 const persistedState = loadStateFromLocalStorage();
 
@@ -16,6 +17,7 @@ const reducer = {
   timerSetting: timerReducer,
   dataAnalysis: taskSlice,
   colorSettings: colorSlice,
+  report: reportSlice,
 };
 
 const store = configureStore({
