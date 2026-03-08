@@ -30,11 +30,13 @@ export default function TimerMain() {
   const [activeMode, setActiveMode] = useState("pomodoro");
   const [title, setTitle] = useState("StudyPomo");
   const [currentTimerKey, setCurrentTimerKey] = useState("pomodoroTime");
+  const [mounted, setMounted] = useState(false);
 
-  const activeTask =
-    data && data.length > 0
-      ? data.find((d) => !d.status && d.currentSession < d.totalSessions)?.text || "StudyPomo"
-      : "StudyPomo";
+  useEffect(() => { setMounted(true); }, []);
+
+  const activeTask = mounted && data && data.length > 0
+    ? data.find((d) => !d.status && d.currentSession < d.totalSessions)?.text || "StudyPomo"
+    : "StudyPomo";
 
   const currentColor = (() => {
     const config = MODE_CONFIG[currentTimerKey];
@@ -232,8 +234,8 @@ export default function TimerMain() {
         </div>
       </div>
 
-      <div className={styles.pomoCounter}>#{settings.pomoCount + 1}</div>
-      <div className={styles.activeTask}>{activeTask}</div>
+      <div className={styles.pomoCounter} suppressHydrationWarning>#{mounted ? settings.pomoCount + 1 : 1}</div>
+      <div className={styles.activeTask} suppressHydrationWarning>{activeTask}</div>
 
       <span className="sr-only" aria-live="polite">
         {isRunning ? "Zamanlayıcı çalışıyor" : "Zamanlayıcı durduruldu"}

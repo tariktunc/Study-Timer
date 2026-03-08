@@ -198,7 +198,7 @@ export default function TodoList() {
       )}
 
       {/* Task list - can be hidden */}
-      <div className={hideTasks ? TaskCss.hideTasksHidden : undefined}>
+      <div className={hideTasks ? TaskCss.hideTasksHidden : undefined} style={{ width: "100%" }}>
         {/* Sortable active tasks */}
         <DndContext
           sensors={sensors}
