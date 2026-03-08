@@ -47,6 +47,12 @@ export const dataSlice = createSlice({
     clearAll: (state) => {
       state.data = [];
     },
+
+    clearActPomodoros: (state) => {
+      state.data.forEach((d) => {
+        d.currentSession = 0;
+      });
+    },
   },
 });
 
@@ -59,6 +65,7 @@ export const {
   reorderData,
   clearCompleted,
   clearAll,
+  clearActPomodoros,
 } = dataSlice.actions;
 
 export default dataSlice.reducer;

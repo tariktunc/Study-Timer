@@ -11,6 +11,8 @@ export const timerSlice = createSlice({
       longBreakInterval: 4,
       autoStartBreaks: false,
       autoStartPomodoros: false,
+      autoCheckTasks: true,
+      checkToBottom: true,
     },
   },
   reducers: {

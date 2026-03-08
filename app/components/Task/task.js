@@ -1,14 +1,12 @@
 "use client";
 import React from "react";
 import TaskCss from "./task.module.scss";
-import TrashSVG from "../icons/trash/trash";
 import VerifySVG from "../icons/verify/verify";
 
 export default function Task({
   text,
   sessionCount,
   activeSession,
-  deleteItem,
   taskId,
   editTaskClick,
   dragListeners,
@@ -61,11 +59,21 @@ export default function Task({
         <button
           onClick={(e) => {
             e.stopPropagation();
-            deleteItem();
+            editTaskClick(taskId);
           }}
-          aria-label={`${text} görevini sil`}
+          aria-label={`${text} görevini düzenle`}
+          className={TaskCss.taskMenuBtn}
+          style={{
+            background: "none",
+            width: "36px",
+            height: "36px",
+          }}
         >
-          <TrashSVG />
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <circle cx="12" cy="5" r="2" />
+            <circle cx="12" cy="12" r="2" />
+            <circle cx="12" cy="19" r="2" />
+          </svg>
         </button>
       </div>
     </div>

@@ -8,6 +8,8 @@ export default function NewTask({ savesTask, cancelTask }) {
   const dispatch = useDispatch();
   const [count, setCount] = useState(1);
   const [text, setText] = useState("");
+  const [showNote, setShowNote] = useState(false);
+  const [note, setNote] = useState("");
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -29,6 +31,7 @@ export default function NewTask({ savesTask, cancelTask }) {
         currentSession: 0,
         totalSessions: count,
         status: false,
+        note: note.trim(),
       })
     );
     savesTask();
@@ -81,6 +84,25 @@ export default function NewTask({ savesTask, cancelTask }) {
           </button>
         </div>
       </div>
+
+      {!showNote ? (
+        <div className={styles.addNoteLink}>
+          <button onClick={() => setShowNote(true)}>+ Not Ekle</button>
+        </div>
+      ) : (
+        <div className={styles.noteArea}>
+          <textarea
+            value={note}
+            onChange={(e) => {
+              if (e.target.value.length <= 500) setNote(e.target.value);
+            }}
+            placeholder="Not ekleyin..."
+            maxLength={500}
+            aria-label="Görev notu"
+          />
+          <div className={styles.charCount}>{note.length}/500</div>
+        </div>
+      )}
 
       <div className={styles.saveOrcancel}>
         <div className={styles.delete}>

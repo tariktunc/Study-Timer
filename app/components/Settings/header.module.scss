@@ -275,33 +275,71 @@
   /* Save/Cancel Modal */
   .modal {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
     padding: var(--space-4) var(--space-5);
-    gap: var(--space-3);
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
 
     button {
       padding: var(--space-2) var(--space-5);
       border-radius: var(--radius-md);
       font-size: var(--font-size-sm);
       min-height: 36px;
+    }
+  }
 
-      &:first-child {
-        color: var(--color-text-secondary);
+  /* Section Header */
+  .sectionHeader {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-4) var(--space-5) 0 var(--space-5);
+    margin-top: var(--space-2);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
 
-        &:hover {
-          background-color: var(--color-surface-alt);
-        }
-      }
+    svg {
+      opacity: 0.7;
+    }
+  }
 
-      &:last-child {
-        background-color: var(--color-text-primary);
-        color: var(--color-surface);
+  .sectionDivider {
+    height: 1px;
+    background-color: #e6e6e6;
+    margin: var(--space-2) var(--space-5) 0 var(--space-5);
+  }
 
-        &:hover {
-          opacity: 0.85;
-        }
-      }
+  /* Task Settings */
+  .taskSettingRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-3) var(--space-5);
+
+    span {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+  }
+
+  /* OK Button */
+  .okButton {
+    width: 100%;
+    padding: var(--space-3) var(--space-5) !important;
+    background-color: #222 !important;
+    color: #fff !important;
+    border-radius: var(--radius-md) !important;
+    font-size: var(--font-size-sm) !important;
+    font-weight: var(--font-weight-bold) !important;
+    text-align: center;
+    cursor: pointer;
+    min-height: 40px;
+
+    &:hover {
+      opacity: 0.9;
     }
   }
 

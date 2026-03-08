@@ -2,6 +2,7 @@
 const path = require("path");
 
 const nextConfig = {
+  outputFileTracingRoot: __dirname,
   sassOptions: {
     includePaths: [path.join(__dirname, "styles")],
   },
