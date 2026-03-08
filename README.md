@@ -1,6 +1,7 @@
 ### Pomodoro Study Timer with To-Do List 
 #
 ## Introduction
+Tarik
 The Pomodoro Study Timer is a productivity tool designed to help users implement the Pomodoro Technique for time management. The application features a customizable timer with focus session lengths, short and long break intervals, and a dynamic to-do list to track tasks.
 
 ## Features
