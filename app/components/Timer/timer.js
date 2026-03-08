@@ -232,7 +232,7 @@ export default function TimerMain() {
         </div>
       </div>
 
-      <div className={styles.pomoCounter}>#{settings.pomoCount}</div>
+      <div className={styles.pomoCounter}>#{settings.pomoCount + 1}</div>
       <div className={styles.activeTask}>{activeTask}</div>
 
       <span className="sr-only" aria-live="polite">

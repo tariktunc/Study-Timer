@@ -78,8 +78,8 @@
   --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
   --shadow-inset: inset 0 2px 4px rgba(0, 0, 0, 0.1);
-  --shadow-button: 0 6px 0 rgb(0 0 0 / 10%);
-  --shadow-button-active: 0 2px 0 rgb(0 0 0 / 10%);
+  --shadow-button: 0 6px 0 rgb(0 0 0 / 15%);
+  --shadow-button-active: none;
 
   /* Transitions */
   --transition-fast: 150ms ease;

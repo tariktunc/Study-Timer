@@ -29,14 +29,7 @@ export default function Task({
       {/* Drag handle */}
       <div
         {...dragListeners}
-        style={{
-          display: "flex",
-          alignItems: "center",
-          padding: "0 var(--space-2) 0 var(--space-3)",
-          cursor: "grab",
-          color: "var(--color-text-muted)",
-          touchAction: "none",
-        }}
+        className={TaskCss.dragHandle}
         onClick={(e) => e.stopPropagation()}
         aria-label="Sürükle ve bırak"
       >
