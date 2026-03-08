@@ -8,12 +8,12 @@ export default function Navbar({ settingTask }) {
   return (
     <nav className={styles.navbar} role="navigation" aria-label="Ana navigasyon">
       <div className={styles.navContent}>
-        <Link href="/" className={styles.logo} aria-label="StudyTimer Ana Sayfa">
+        <Link href="/" className={styles.logo} aria-label="StudyPomo Ana Sayfa">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" />
             <path d="M12 6v6l4 2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
           </svg>
-          <span>StudyTimer</span>
+          <span>StudyPomo</span>
         </Link>
 
         <div className={styles.navActions}>

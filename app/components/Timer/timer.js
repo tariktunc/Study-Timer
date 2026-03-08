@@ -28,13 +28,13 @@ export default function TimerMain() {
   const [isStop, setIsStop] = useState(false);
   const [isRunning, setIsRunning] = useState(false);
   const [activeMode, setActiveMode] = useState("pomodoro");
-  const [title, setTitle] = useState("StudyTimer");
+  const [title, setTitle] = useState("StudyPomo");
   const [currentTimerKey, setCurrentTimerKey] = useState("pomodoroTime");
 
   const activeTask =
     data && data.length > 0
-      ? data.find((d) => !d.status && d.currentSession < d.totalSessions)?.text || "StudyTimer"
-      : "StudyTimer";
+      ? data.find((d) => !d.status && d.currentSession < d.totalSessions)?.text || "StudyPomo"
+      : "StudyPomo";
 
   const currentColor = (() => {
     const config = MODE_CONFIG[currentTimerKey];
@@ -75,7 +75,7 @@ export default function TimerMain() {
       setIsStop(false);
       setActiveMode(config.mode);
       setCurrentTimerKey(timerKey);
-      setTitle("StudyTimer");
+      setTitle("StudyPomo");
     },
     [settings]
   );
@@ -87,7 +87,7 @@ export default function TimerMain() {
     setSeconds(0);
     setIsRunning(false);
     setIsStop(false);
-    setTitle("StudyTimer");
+    setTitle("StudyPomo");
   }, [settings, currentTimerKey]);
 
   const handleTimerEnd = useCallback(() => {
@@ -124,7 +124,7 @@ export default function TimerMain() {
       setSeconds(0);
       setActiveMode(config.mode);
       setCurrentTimerKey(nextTimerKey);
-      setTitle("StudyTimer");
+      setTitle("StudyPomo");
 
       if (shouldAutoStart) {
         setIsRunning(true);

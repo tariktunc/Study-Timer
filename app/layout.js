@@ -4,8 +4,8 @@ import { Providers } from "./providers";
 
 export const metadata = {
   title: {
-    default: "StudyTimer - Pomodoro Çalışma Zamanlayıcısı",
-    template: "%s | StudyTimer",
+    default: "StudyPomo - Pomodoro Çalışma Zamanlayıcısı",
+    template: "%s | StudyPomo",
   },
   description:
     "Pomodoro tekniği ile üretkenliğinizi artırın. Görev yönetimi, istatistikler ve özelleştirilebilir zamanlayıcı.",
@@ -20,7 +20,7 @@ export const metadata = {
     icon: "/focusIcon.png",
   },
   openGraph: {
-    title: "StudyTimer - Pomodoro Çalışma Zamanlayıcısı",
+    title: "StudyPomo - Pomodoro Çalışma Zamanlayıcısı",
     description:
       "Pomodoro tekniği ile üretkenliğinizi artırın. Görev yönetimi, istatistikler ve özelleştirilebilir zamanlayıcı.",
     type: "website",
